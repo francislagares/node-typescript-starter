@@ -1,4 +1,5 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
+import indexRouter from '../routes';
 
 const app = express();
 
@@ -7,11 +8,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Routes...
-app.get('/', (req: Request, res: Response) => {
-  res.json({
-    status: 200,
-    message: 'Welcome to the home page',
-  });
-});
+app.use('/', indexRouter);
 
 export { app };

@@ -1,12 +1,8 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
+import indexController from '../controllers/index.controller';
 
-const router = express.Router();
+const indexRouter = express.Router();
 
-router.get('/', (req: Request, res: Response) => {
-  res.json({
-    status: 200,
-    message: 'Welcome to the home page',
-  });
-});
+indexRouter.get('/', indexController.get);
 
-export default router;
+export default indexRouter;
