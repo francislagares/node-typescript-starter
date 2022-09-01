@@ -1,12 +1,10 @@
 import { Request, Response } from 'express';
+import * as indexServices from '../services/indexService';
 
-function get(req: Request, res: Response): void {
-  res.json({
-    status: 200,
-    message: 'Welcome to the home page',
-  });
+function getIndexService(req: Request, res: Response): void {
+  res.send(indexServices.sendStatusOk());
 }
 
 export default {
-  get,
+  getIndexService,
 };
