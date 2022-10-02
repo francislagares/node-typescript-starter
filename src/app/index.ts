@@ -1,5 +1,6 @@
+import 'module-alias/register';
 import express from 'express';
-import indexRouter from '../routes';
+import indexRouter from '@/routes/indexRouter';
 
 const app = express();
 

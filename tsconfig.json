@@ -2,11 +2,17 @@
   "compilerOptions": {
     "target": "es2022",
     "module": "commonjs",
-    "rootDir": "./src",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
     "outDir": "./build",
     "moduleResolution": "node",
-    "baseUrl": "./src",
     "esModuleInterop": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -21,8 +27,6 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
     "downlevelIteration": true
   },
   "include": ["src/**/*.ts"],
