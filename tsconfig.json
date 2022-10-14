@@ -1,34 +1,46 @@
 {
   "compilerOptions": {
+    /* Project Setup */
     "target": "es2022",
     "module": "commonjs",
+    "outDir": "./build",
+    "allowJs": true,
+    "sourceMap": true,
+    "removeComments": false,
+    "isolatedModules": true,
+    "downlevelIteration": true,
+    "skipLibCheck": true,
+    "lib": ["dom", "esnext", "es2018"],
+
+    /* Module Resolution */
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "types": ["node", "jest"],
+    "typeRoots": ["node_modules/@types"],
+    "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
       "@/*": [
         "src/*"
       ]
     },
-    "outDir": "./build",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "isolatedModules": true,
-    "resolveJsonModule": true,
-    "sourceMap": true,
+
+    /* Strict Type-Checking */
+    "strict": true,
+
+    /* Linter Checks */
+    "noFallthroughCasesInSwitch": true,
+
+    /* Experimental Options */
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "removeComments": false,
-    "noImplicitAny": false,
-    "typeRoots": ["node_modules/@types"],
-    "types": ["node", "jest"],
-    "lib": ["dom", "esnext", "es2018"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
+
+     /* Advanced Options */
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "downlevelIteration": true
   },
+
+  /* File Inclusion */
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules"]
 }
