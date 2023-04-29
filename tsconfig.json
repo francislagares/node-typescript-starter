@@ -3,7 +3,7 @@
     /* Project Setup */
     "target": "es2022",
     "module": "commonjs",
-    "outDir": "./build",
+    "outDir": "./dist",
     "allowJs": true,
     "sourceMap": true,
     "removeComments": false,

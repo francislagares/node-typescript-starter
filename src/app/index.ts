@@ -1,4 +1,5 @@
 import 'module-alias/register';
+
 import express from 'express';
 import indexRouter from '@/routes/indexRouter';
 
