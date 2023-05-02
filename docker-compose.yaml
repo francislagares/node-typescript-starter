@@ -11,10 +11,6 @@ services:
     restart: unless-stopped
     stdin_open: true
     env_file: .env
-    depends_on:
-      - mongodb-primary
-      - mongodb-secondary
-      - mongodb-arbiter
     networks:
       - mern-api-network
     ports:
@@ -22,57 +18,13 @@ services:
     volumes:
       - .:/appdir
       - node_modules:/appdir/node_modules
-
-  mongodb-primary:
-    container_name: mongodb-primary
-    image: mongo
-    environment:
-      - MONGODB_ADVERTISED_HOSTNAME=mongodb-primary
-      - MONGODB_REPLICA_SET_MODE=primary
-      - MONGODB_ROOT_PASSWORD=password123
-      - MONGODB_REPLICA_SET_KEY=replicaset123
-    networks:
-      - mern-api-network
-    volumes:
-      - 'mongodb_master_data:/bitnami/mongodb'
-    ports:
-      - '27017:27017'
-
-  mongodb-secondary:
-    container_name: mongodb-secondary
-    image: mongo
-    depends_on:
-      - mongodb-primary
-    environment:
-      - MONGODB_ADVERTISED_HOSTNAME=mongodb-secondary
-      - MONGODB_REPLICA_SET_MODE=secondary
-      - MONGODB_INITIAL_PRIMARY_HOST=mongodb-primary
-      - MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD=password123
-      - MONGODB_REPLICA_SET_KEY=replicaset123
-    networks:
-      - mern-api-network
-
-  mongodb-arbiter:
-    container_name: mongodb-arbiter
-    image: mongo
-    depends_on:
-      - mongodb-primary
-    environment:
-      - MONGODB_ADVERTISED_HOSTNAME=mongodb-arbiter
-      - MONGODB_REPLICA_SET_MODE=arbiter
-      - MONGODB_INITIAL_PRIMARY_HOST=mongodb-primary
-      - MONGODB_INITIAL_PRIMARY_ROOT_PASSWORD=password123
-      - MONGODB_REPLICA_SET_KEY=replicaset123
-    networks:
-      - mern-api-network
-
 networks:
   mern-api-network:
     name: mern-api-network
 
 volumes:
-  mongodb_master_data:
+  mongodb-cluster:
     driver: local
-    name: mongodb_master
+    name: mongodb-cluster
   node_modules:
     name: node-modules

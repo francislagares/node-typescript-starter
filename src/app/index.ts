@@ -1,8 +1,8 @@
 import 'module-alias/register';
 
 import { databaseConnection } from '@/config/database';
-import express from 'express';
 import indexRouter from '@/routes/indexRouter';
+import express from 'express';
 
 const app = express();
 databaseConnection();

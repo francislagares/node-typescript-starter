@@ -4,10 +4,22 @@
 .dockerignore
 
 # Build dependencies
+.vscode
 dist.do
-node_modules
+/node_modules
 
-# Misc
-.eslintrc.js
+# code formatter
+.eslintrc
+.eslintignore
+.editorconfig
+.huskyrc
+.lintstagedrc.json
 .prettierrc
 README.md
+
+# test
+jest.config.js
+
+# docker
+Dockerfile
+docker-compose.yml

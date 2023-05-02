@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     /* Project Setup */
-    "target": "es2022",
+    "target": "esnext",
     "module": "commonjs",
     "outDir": "./dist",
     "allowJs": true,
