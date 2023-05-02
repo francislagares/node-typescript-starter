@@ -1,21 +1,25 @@
-import type { Config } from '@jest/types';
+import type { JestConfigWithTsJest } from 'ts-jest';
 
-const config: Config.InitialOptions = {
-  globals: {
-    'ts-jest': {
-      tsconfig: 'tsconfig.json',
-    },
-  },
+const config: JestConfigWithTsJest = {
+  roots: ['<rootDir>/src'],
+  testEnvironment: 'node',
   moduleFileExtensions: ['ts', 'js'],
+  testMatch: ['**/src/**/*.test.ts'],
+  verbose: true,
+  preset: 'ts-jest',
   transform: {
-    '^.+\\.ts$': 'ts-jest',
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        //the content you'd placed at "global"
+        babel: true,
+        tsConfig: 'tsconfig.json',
+      },
+    ],
   },
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
-  testMatch: ['**/src/**/*.test.ts'],
-  testEnvironment: 'node',
-  verbose: true,
   collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/src/app/**/*.ts'],
 };
