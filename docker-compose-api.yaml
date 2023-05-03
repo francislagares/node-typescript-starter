@@ -12,19 +12,16 @@ services:
     stdin_open: true
     env_file: .env
     networks:
-      - mern-api-network
+      - node-api-net
     ports:
       - "4000:4000"
     volumes:
       - .:/appdir
       - node_modules:/appdir/node_modules
 networks:
-  mern-api-network:
-    name: mern-api-network
+  node-api-net:
+    name: node-api-net
 
 volumes:
-  mongodb-cluster:
-    driver: local
-    name: mongodb-cluster
   node_modules:
     name: node-modules
