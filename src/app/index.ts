@@ -16,6 +16,8 @@ import { MongoDBInstance as dbConnection } from '@/config/database';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import logger from '@/utils/logger';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 
 export class App {
   private app: Application;
@@ -30,6 +32,7 @@ export class App {
     this.routesMiddleware(this.app);
     this.globalErrorHandler(this.app);
     this.startServer(this.app);
+    this.initializeSwagger();
   }
 
   public getServer() {
@@ -72,5 +75,22 @@ export class App {
     app.listen(PORT, () => {
       logger.info(`Server listening on port ${PORT}`);
     });
+  }
+
+  private initializeSwagger() {
+    const options = {
+      swaggerDefinition: {
+        openapi: '3.0.3',
+        info: {
+          title: 'API Documentation',
+          version: '1.0.0',
+          description: 'Example docs',
+        },
+      },
+      apis: ['./swagger.yaml'],
+    };
+
+    const swaggerSpecs = swaggerJSDoc(options);
+    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
   }
 }
