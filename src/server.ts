@@ -1,16 +1,14 @@
-import { app } from './app';
+import { App } from '@/app';
+import express from 'express';
 
-const createServer = async () => {
-  try {
-    // Start the server
-    const PORT = 4000;
-    // Binding Heroku to 0.0.0.0 instead of localhost
-    app.listen(PORT, '0.0.0.0', () => {
-      console.log(`Server listening on port ${PORT}!`);
-    });
-  } catch (error) {
-    console.log(error);
+export class Server {
+  public init() {
+    const httpServer = new App(express());
+
+    httpServer.listen();
   }
-};
+}
 
-createServer();
+const server = new Server();
+
+server.init();

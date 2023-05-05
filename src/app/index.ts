@@ -1,19 +1,76 @@
-import 'module-alias/register';
+import { Application, json, urlencoded } from 'express';
+import {
+  CLIENT_URL,
+  CREDENTIALS,
+  NODE_ENV,
+  ORIGIN,
+  PORT,
+} from '@/config/environment';
 
-import { databaseConnection } from '@/config/database';
-import express from 'express';
+import { ErrorMiddleware } from '@/middlewares/error.middleware';
+import applicationRoutes from '@/routes/index';
+import compression from 'compression';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import { getDbConnection } from '@/config/database';
 import helmet from 'helmet';
-import indexRouter from '@/routes/index.router';
+import hpp from 'hpp';
+import logger from '@/utils/logger';
 
-const app = express();
-databaseConnection();
+export class App {
+  private app: Application;
 
-// Middlewares
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(helmet());
+  constructor(app: Application) {
+    this.app = app;
+  }
 
-// Routes
-app.use('/', indexRouter);
+  public listen(): void {
+    this.connectDatabase();
+    this.securityMiddleware(this.app);
+    this.routesMiddleware(this.app);
+    this.globalErrorHandler(this.app);
+    this.startServer(this.app);
+  }
 
-export { app };
+  public getServer() {
+    return this.app;
+  }
+
+  private securityMiddleware(app: Application): void {
+    app.use(cors({ origin: ORIGIN, credentials: CREDENTIALS }));
+    app.use(hpp());
+    app.use(helmet());
+    app.use(compression());
+    app.use(json());
+    app.use(urlencoded({ extended: true, limit: '50mb' }));
+    app.use(cookieParser());
+    app.use(
+      cors({
+        origin: CLIENT_URL,
+        credentials: true,
+        optionsSuccessStatus: 200,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+      }),
+    );
+  }
+
+  private routesMiddleware(app: Application): void {
+    applicationRoutes(app);
+  }
+
+  private globalErrorHandler(app: Application): void {
+    app.use(ErrorMiddleware);
+  }
+
+  private connectDatabase(): void {
+    getDbConnection();
+  }
+
+  private startServer(app: Application): void {
+    logger.info(`------ NODE_ENV: ${NODE_ENV} ------`);
+    logger.info(`Server has started with process ${process.pid}`);
+    app.listen(PORT, () => {
+      logger.info(`Server listening on port ${PORT}`);
+    });
+  }
+}

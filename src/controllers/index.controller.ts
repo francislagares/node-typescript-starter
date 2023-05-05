@@ -1,19 +1,9 @@
 import { Request, Response } from 'express';
 
-class Controller {
+class IndexController {
   public getIndex = async (req: Request, res: Response) => {
     try {
       res.status(200).send('Hello World!');
-    } catch (e) {
-      if (e instanceof Error) {
-        res.status(500).send(e.message);
-      }
-    }
-  };
-
-  public getApi = async (req: Request, res: Response) => {
-    try {
-      res.status(200).send('This is an API endpoint!');
     } catch (e) {
       if (e instanceof Error) {
         res.status(500).send(e.message);
@@ -32,4 +22,4 @@ class Controller {
   };
 }
 
-export default Controller;
+export default IndexController;

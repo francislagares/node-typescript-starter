@@ -1,8 +1,12 @@
-import { app } from '@/app';
+import { Server } from '@/server';
 import request from 'supertest';
 
 describe('App Index', () => {
   test('[GET] / with response statusCode 200 ', async () => {
-    await request(app).get('/').expect(200);
+    const app = new Server().init;
+
+    // await request(app.getServer()).get('/').expect(200);
+
+    await request(app).get('/api/v1').expect(200);
   });
 });

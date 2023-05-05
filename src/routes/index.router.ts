@@ -1,13 +1,22 @@
-import Controller from '@/controllers/index.controller';
-import { Router } from 'express';
+import express, { Router } from 'express';
 
-const router = Router();
-const controller = new Controller();
+import IndexController from '@/controllers/index.controller';
 
-router.get('/', controller.getIndex);
+export class IndexRoutes {
+  private router: Router;
 
-router.get('/api', controller.getApi);
+  constructor() {
+    this.router = express.Router();
+  }
 
-router.get('/api/:id', controller.getApibyId);
+  public getRoutes(): Router {
+    const controller = new IndexController();
 
-export default router;
+    this.router.get('/', controller.getIndex);
+    this.router.get('/:id', controller.getApibyId);
+
+    return this.router;
+  }
+}
+
+export const indexRoutes = new IndexRoutes();

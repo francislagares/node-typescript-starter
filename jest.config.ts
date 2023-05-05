@@ -11,9 +11,8 @@ const config: JestConfigWithTsJest = {
     '^.+\\.tsx?$': [
       'ts-jest',
       {
-        //the content you'd placed at "global"
         babel: true,
-        tsConfig: 'tsconfig.json',
+        tsconfig: 'tsconfig.json',
       },
     ],
   },

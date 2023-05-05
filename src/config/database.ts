@@ -1,11 +1,12 @@
+import logger from '@/utils/logger';
 import { PrismaClient } from '@prisma/client';
 
 const database = new PrismaClient();
 
-export const databaseConnection = () => {
+export const getDbConnection = () => {
   const connect = async () => {
     await database.$connect().then(() => {
-      console.info('Successfully connected to database!');
+      logger.info('Successfully connected to database!');
     });
   };
 
