@@ -12,7 +12,7 @@ import applicationRoutes from '@/routes/index';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import { getDbConnection } from '@/config/database';
+import { MongoDBInstance as dbConnection } from '@/config/database';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import logger from '@/utils/logger';
@@ -24,7 +24,7 @@ export class App {
     this.app = app;
   }
 
-  public listen(): void {
+  public start(): void {
     this.connectDatabase();
     this.securityMiddleware(this.app);
     this.routesMiddleware(this.app);
@@ -63,7 +63,7 @@ export class App {
   }
 
   private connectDatabase(): void {
-    getDbConnection();
+    dbConnection.getInstance();
   }
 
   private startServer(app: Application): void {

@@ -1,24 +1,37 @@
 import logger from '@/utils/logger';
 import { PrismaClient } from '@prisma/client';
 
-const database = new PrismaClient();
+export class MongoDBInstance {
+  private static instance: MongoDBInstance;
+  private database: PrismaClient;
 
-export const getDbConnection = () => {
-  const connect = async () => {
-    await database.$connect().then(() => {
-      logger.info('Successfully connected to database!');
-    });
+  private constructor() {
+    this.database = new PrismaClient();
+    this.getDbConnection();
+  }
+
+  public static getInstance() {
+    if (!this.instance) {
+      this.instance = new MongoDBInstance();
+    }
+    return this.instance;
+  }
+
+  private getDbConnection = () => {
+    const connect = async () => {
+      await this.database.$connect().then(() => {
+        logger.info('Successfully connected to database!');
+      });
+    };
+
+    connect()
+      .then(async () => {
+        await this.database.$disconnect();
+      })
+      .catch(async e => {
+        console.log(e);
+        await this.database.$disconnect();
+        process.exit(1);
+      });
   };
-
-  connect()
-    .then(async () => {
-      await database.$disconnect();
-    })
-    .catch(async e => {
-      console.log(e);
-      await database.$disconnect();
-      process.exit(1);
-    });
-};
-
-export default database;
+}

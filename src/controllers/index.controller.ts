@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
 class IndexController {
-  public getIndex = async (req: Request, res: Response) => {
+  public getIndex = async (req: Request, res: Response): Promise<void> => {
     try {
       res.status(200).send('Hello World!');
     } catch (e) {
@@ -11,7 +11,7 @@ class IndexController {
     }
   };
 
-  public getApibyId = async (req: Request, res: Response) => {
+  public getApibyId = async (req: Request, res: Response): Promise<void> => {
     try {
       res.status(200).json({ id: req.params.id });
     } catch (e) {

@@ -5,7 +5,7 @@ export class Server {
   public init() {
     const httpServer = new App(express());
 
-    httpServer.listen();
+    httpServer.start();
   }
 }
 
