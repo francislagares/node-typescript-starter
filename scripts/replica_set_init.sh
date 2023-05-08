@@ -15,8 +15,8 @@ _config=\
 {
 	"_id": "rs0",
 	"members": [
-		{ "_id": 0, "host": "mongo0" },
-		{ "_id": 1, "host": "mongo1" },
+		{ "_id": 0, "host": "mongo0", "priority": 1 },
+		{ "_id": 1, "host": "mongo1", "priority": 2 },
 		{ "_id": 2, "host": "mongo2", arbiterOnly: true },
 	]
 }
@@ -31,13 +31,13 @@ if [[ -n "${DB_USERNAME:-}" && -n "${DB_PASSWORD:-}" ]]; then
 	-u $DB_USERNAME -p $DB_PASSWORD \
 	--authenticationDatabase admin \
 	<<-EOF
-		rs.initiate($_config);
+		rs.initiate($_config, { force: true });
 	EOF
 else
 	mongosh --quiet \
 	--host mongo0 \
 	<<-EOF
-		rs.initiate($_config);
+		rs.initiate($_config, { force: true });
 	EOF
 fi
 

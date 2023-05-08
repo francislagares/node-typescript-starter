@@ -26,9 +26,6 @@
       ]
     },
 
-    /* Strict Type-Checking */
-    "strict": true,
-
     /* Linter Checks */
     "noFallthroughCasesInSwitch": true,
 
