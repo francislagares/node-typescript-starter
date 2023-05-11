@@ -3,4 +3,4 @@
 
 ###
 # Find All Users
-GET {{ baseURL }}/api/v1
+GET {{ baseURL }}/api/v1/health

@@ -11,11 +11,11 @@ describe('HealthController', () => {
     app = new App(express()).getServer();
 
     const controller = new HealthController();
-    app.get('/', controller.getHealth);
+    app.get('/health', controller.getHealth);
   });
 
-  it('GET / should return status 200 and { health: "OK!" } when GET /', async () => {
-    const response = await request(app).get('/');
+  it('GET /health should return status 200 and { health: "OK!" } when GET /health', async () => {
+    const response = await request(app).get('/health');
     expect(response.status).toEqual(200);
     expect(response.body).toEqual({ health: 'OK!' });
   });

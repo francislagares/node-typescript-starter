@@ -12,7 +12,7 @@ export class HealthRoutes {
   public getRoutes(): Router {
     const controller = new HealthController();
 
-    this.router.get('/', controller.getHealth);
+    this.router.get('/health', controller.getHealth);
 
     return this.router;
   }

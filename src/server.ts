@@ -9,7 +9,6 @@ export class Server {
     httpServer.start();
   }
 }
-
 const server = new Server();
 
 server.init();
