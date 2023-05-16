@@ -15,8 +15,8 @@ _config=\
 {
 	"_id": "rs0",
 	"members": [
-		{ "_id": 0, "host": "mongo0", "priority": 1 },
-		{ "_id": 1, "host": "mongo1", "priority": 2 },
+		{ "_id": 0, "host": "mongo0", "priority": 2 },
+		{ "_id": 1, "host": "mongo1", "priority": 1 },
 		{ "_id": 2, "host": "mongo2", arbiterOnly: true },
 	]
 }
