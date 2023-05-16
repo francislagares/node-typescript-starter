@@ -1,21 +1,23 @@
-import { Application, json, urlencoded } from 'express';
 import {
+  BASE_URL,
   CLIENT_URL,
   CREDENTIALS,
+  HOST,
   NODE_ENV,
   ORIGIN,
   PORT,
 } from '@/config/environment';
+import { Application, json, urlencoded } from 'express';
 
-import { ErrorMiddleware } from '@/middlewares/error.middleware';
+import { MongoDBInstance as dbConnection } from '@/config/database';
+import { ErrorMiddleware } from '@/libs/shared/middlewares/error.middleware';
 import applicationRoutes from '@/routes/index';
+import logger from '@/utils/logger';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import { MongoDBInstance as dbConnection } from '@/config/database';
 import helmet from 'helmet';
 import hpp from 'hpp';
-import logger from '@/utils/logger';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 
@@ -84,13 +86,20 @@ export class App {
         info: {
           title: 'API Documentation',
           version: '1.0.0',
-          description: 'Example docs',
+          description: 'REST API docs',
         },
+        servers: [
+          {
+            url: `${HOST}:${PORT}${BASE_URL}`,
+          },
+        ],
       },
       apis: ['./swagger.yaml'],
     };
 
     const swaggerSpecs = swaggerJSDoc(options);
     this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+
+    logger.info(`Docs are available at ${HOST}:${PORT}/api-docs`);
   }
 }
