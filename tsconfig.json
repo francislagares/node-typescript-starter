@@ -10,7 +10,7 @@
     "isolatedModules": true,
     "downlevelIteration": true,
     "skipLibCheck": true,
-    "lib": ["dom", "esnext", "es2018"],
+    "lib": ["dom", "esnext", "es2022"],
 
     /* Module Resolution */
     "esModuleInterop": true,
