@@ -2,7 +2,7 @@
   "compilerOptions": {
     /* Project Setup */
     "target": "esnext",
-    "module": "commonjs",
+    "module": "NodeNext",
     "outDir": "./dist",
     "allowJs": true,
     "sourceMap": true,
@@ -14,16 +14,14 @@
 
     /* Module Resolution */
     "esModuleInterop": true,
-    "moduleResolution": "node",
+    "moduleResolution": "NodeNext",
     "resolveJsonModule": true,
-    "types": ["node", "jest"],
+    "types": ["node"],
     "typeRoots": ["node_modules/@types"],
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": ["src/*"]
     },
 
     /* Linter Checks */
@@ -33,8 +31,8 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
 
-     /* Advanced Options */
-    "forceConsistentCasingInFileNames": true,
+    /* Advanced Options */
+    "forceConsistentCasingInFileNames": true
   },
 
   /* File Inclusion */

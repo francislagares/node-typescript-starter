@@ -1,35 +1,32 @@
 FROM node:alpine AS development
 
-WORKDIR /appdir
+WORKDIR /app
 
 COPY package.json .
-COPY yarn.lock .
+COPY pnpm-lock.yaml .
 
-RUN yarn set version stable
-RUN yarn install
+RUN corepack enable
+RUN pnpm install
 
-# COPY
 COPY . .
-
-RUN yarn install
 
 EXPOSE 4000
 
-CMD ["yarn", "start:dev"]
+CMD ["pnpm", "start:dev"]
 
 FROM node:alpine AS production
 
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
-WORKDIR /appdir
+WORKDIR /app
 
 COPY package.json .
 
-RUN yarn install --only=production
+RUN pnpm install --only=production
 
 COPY . .
 
-COPY --from=development ./appdir/dist ./dist
+COPY --from=development ./app/dist ./dist
 
 CMD ["node", "dist/server.js"]

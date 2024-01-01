@@ -10,14 +10,14 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     stdin_open: true
-    env_file: .env
+    env_file: .env.development.local
     networks:
       - node-api-net
     ports:
       - "4000:4000"
     volumes:
-      - .:/appdir
-      - node_modules:/appdir/node_modules
+      - .:/app
+      - node_modules:/app/node_modules
 networks:
   node-api-net:
     name: node-api-net
