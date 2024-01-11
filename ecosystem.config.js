@@ -54,7 +54,7 @@ module.exports = {
       repo: 'git@github.com:repo.git',
       path: 'dist/server.js',
       'post-deploy':
-        'yarn install && yarn build && pm2 reload ecosystem.config.js --only prod',
+        'pnpm install && pnpm build && pm2 reload ecosystem.config.js --only prod',
     },
   },
 };
