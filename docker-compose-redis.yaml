@@ -2,9 +2,11 @@ version: "3.9"
 services:
   redis:
     container_name: redis-cache
-    image: redis
+    restart: always
+    image: redis:alpine
     ports:
       - 6379:6379
+    command: redis-server --loglevel --warning
     volumes:
       - ./redis_data:/data
   redis-commander:
