@@ -18,6 +18,7 @@ dist.do
 README.md
 
 # test
+coverage
 jest.config.js
 
 # docker
