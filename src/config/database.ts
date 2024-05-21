@@ -1,4 +1,5 @@
 import { database } from '@/libs/shared/prisma/prisma';
+
 import logger from '@/utils/logger';
 
 export class MongoDBInstance {

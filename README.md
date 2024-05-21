@@ -1,5 +1,5 @@
 
-![node-typescript-express-starter](https://res.cloudinary.com/chatty-app/image/upload/v1683311364/node-typescript_qngr0k.webp)
+![node-typescript-express-starter](https://res.cloudinary.com/jobber-app/image/upload/v1683311364/node-typescript_qngr0k.webp)
 
 # Node TypeScript Express Boilerplate
 

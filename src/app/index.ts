@@ -1,3 +1,17 @@
+import compression from 'compression';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import { Application, json, urlencoded } from 'express';
+import helmet from 'helmet';
+import hpp from 'hpp';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
+
+import { ErrorMiddleware } from '@/libs/shared/middlewares/error.middleware';
+
+import logger from '@/utils/logger';
+
+import { MongoDBInstance as dbConnection } from '@/config/database';
 import {
   BASE_URL,
   CLIENT_URL,
@@ -7,19 +21,8 @@ import {
   ORIGIN,
   PORT,
 } from '@/config/environment';
-import { Application, json, urlencoded } from 'express';
 
-import { MongoDBInstance as dbConnection } from '@/config/database';
-import { ErrorMiddleware } from '@/libs/shared/middlewares/error.middleware';
 import applicationRoutes from '@/routes/index';
-import logger from '@/utils/logger';
-import compression from 'compression';
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
-import helmet from 'helmet';
-import hpp from 'hpp';
-import swaggerJSDoc from 'swagger-jsdoc';
-import swaggerUi from 'swagger-ui-express';
 
 export class App {
   private app: Application;
