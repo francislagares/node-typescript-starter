@@ -12,6 +12,9 @@
     "skipLibCheck": true,
     "lib": ["dom", "esnext", "es2022"],
 
+    /* Strict Type-Checking */
+    "strict": true,
+
     /* Module Resolution */
     "esModuleInterop": true,
     "moduleResolution": "NodeNext",

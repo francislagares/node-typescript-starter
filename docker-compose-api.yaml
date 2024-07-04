@@ -1,9 +1,7 @@
-version: "3.9"
-
 services:
   api:
-    container_name: node-api
-    image: node-api
+    container_name: node-server
+    image: node-server
     build:
       context: .
       target: development
@@ -12,16 +10,14 @@ services:
     stdin_open: true
     env_file: .env.development.local
     networks:
-      - node-api-net
+      - node-server
     ports:
       - "4000:4000"
     volumes:
-      - .:/app
-      - node_modules:/app/node_modules
-networks:
-  node-api-net:
-    name: node-api-net
+      - .:/node-server
+      - /node-server/node_modules
 
-volumes:
-  node_modules:
-    name: node-modules
+networks:
+  node-server:
+    name: node-server
+
