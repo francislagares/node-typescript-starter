@@ -5,7 +5,7 @@ RUN addgroup backend && adduser -S -G backend francis
 
 USER francis
 
-WORKDIR /node-server
+WORKDIR /node-api
 
 COPY package.json tsconfig.json pnpm-lock.yaml ./
 

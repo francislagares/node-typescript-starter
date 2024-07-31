@@ -1,0 +1,44 @@
+services:
+  mongodb:
+    extends:
+      service: mongodb
+      file: infra/docker/docker-compose-mongodb.yaml
+
+  redis:
+    extends:
+      service: redis
+      file: infra/docker/docker-compose-redis.yaml
+
+  redis-commander:
+    extends:
+      service: redis-commander
+      file: infra/docker/docker-compose-redis.yaml
+
+  api:
+    container_name: node-api
+    image: node-api
+    build:
+      context: .
+      target: development
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: .env.development.local
+    depends_on:
+    - mongodb
+    networks:
+      - node_api
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/node-api
+      - /node-api/node_modules
+
+volumes:
+  mongodb:
+    name: mongodb
+  redis:
+    name: redis
+
+networks:
+  node_api:
+    name: node_api

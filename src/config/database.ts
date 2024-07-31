@@ -1,17 +1,17 @@
-import { database } from '@/libs/shared/prisma/prisma';
+import { PrismaClient } from '@prisma/client';
 
 import logger from '@/utils/logger';
 
 export class MongoDBInstance {
   private static instance: MongoDBInstance;
-  private database: typeof database;
+  private database: PrismaClient;
 
   private constructor() {
-    this.database = database;
+    this.database = new PrismaClient();
     this.getDbConnection();
   }
 
-  public static getInstance() {
+  public static async getInstance() {
     if (!this.instance) {
       this.instance = new MongoDBInstance();
     }

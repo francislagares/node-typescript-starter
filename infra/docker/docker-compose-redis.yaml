@@ -1,14 +1,21 @@
-version: "3.9"
 services:
   redis:
     container_name: redis-cache
-    restart: always
     image: redis:alpine
+    restart: always
     ports:
       - 6379:6379
-    command: redis-server --loglevel --warning
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      interval: 1s
+      timeout: 3s
+      retries: 5
+    command: redis-server --loglevel warning
     volumes:
-      - ./redis_data:/data
+      - redis:/data
+    networks:
+     - node_api
+
   redis-commander:
     container_name: redis-commander
     hostname: redis-commander
@@ -17,12 +24,9 @@ services:
       - REDIS_HOSTS=local:redis:6379
     ports:
       - '8081:8081'
-
-networks:
-  redis:
-    name: redis
+    networks:
+     - node_api
 
 volumes:
-  redis_data:
-    name: redis_data
-    driver: local
+  redis:
+    name: redis

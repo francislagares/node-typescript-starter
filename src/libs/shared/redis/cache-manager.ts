@@ -30,9 +30,9 @@ export class CacheManager {
     }
   }
 
-  public removeCache(key: string) {
+  public async removeCache(key: string) {
     try {
-      this.redis.del(key);
+      await this.redis.del(key);
     } catch (err) {
       return null;
     }
